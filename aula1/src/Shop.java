@@ -6,6 +6,7 @@ public class Shop {
 
     Scanner in = new Scanner(System.in);
     ArrayList<String> ingredients = new ArrayList<>();
+    ArrayList<Double> values = new ArrayList<>();
     
     Map<String, Double> breads = Map.of(
         "Pão Francês", 0.25,
@@ -85,12 +86,29 @@ public class Shop {
                     System.out.println("A opção escolhida é inexistente");
                     break;
             }
+
+
         }
 
         System.out.println("Seu hamburguer foi contruido desta forma: ");
         for (String string : ingredients) {
-            System.out.printf("%s\n", string);
+            if (breads.containsKey(string))
+                values.add(breads.get(string));
+            else if (cheeses.containsKey(string))
+                values.add(cheeses.get(string));
+            else if (meats.containsKey(string))
+                values.add(meats.get(string));
+            else if (vegetables.containsKey(string))
+                values.add(vegetables.get(string));
+            else if (extras.containsKey(string))
+                values.add(extras.get(string));
+            System.out.println(string + " $" + values.get(values.size()-1));
         }
+        
+        double sum = 0;
+        for (Double d : values) { sum += d; }
+        
+        System.out.printf("Valor total: $%.2f\n", sum);
     }
 
     String pickBread(){
